@@ -49,7 +49,7 @@ This is the default configuration:
     "versionFiles": ["package.json"],
     "buildCommand": "npm run build",
     "productionBranchName": "master",
-    "`developBranchName`": "develop",
+    "developBranchName": "develop",
     "upstream": "origin"
 }
 ``` 
@@ -81,4 +81,4 @@ For bugs and feature requests, [please create an issue][10].
 
 ## Licence
 
-MIT, see [LICENSE.md](http://github.com/stbaer/gf-release/blob/master/LICENSE.md) for details.
+MIT, see [LICENSE.md](https://github.com/stbaer/gf-release/blob/master/LICENSE.md) for details.
