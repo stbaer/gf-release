@@ -68,9 +68,7 @@
   ],
   "releaseConfig": {
     "versionFiles": [
-      "package.json",
-      "version.json",
-      "test/version.json"
+      "package.json"
     ]
   }
 }
