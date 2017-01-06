@@ -1,6 +1,6 @@
 {
   "name": "gf-release",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "testing",
   "main": "index.js",
   "bin": {
@@ -68,9 +68,7 @@
   ],
   "releaseConfig": {
     "versionFiles": [
-      "package.json",
-      "version.json",
-      "test/version.json"
+      "package.json"
     ]
   }
 }
