@@ -32,7 +32,7 @@ const onGitFlowReleaseFinished = () => {
     inquirer.prompt(prompts.pushThemAll)
         .then(answer => {
             if (answer.pushThemAll) {
-                spinner.create('Pushing branges and tags');
+                spinner.create('Pushing branches and tags');
                 shellEx(`git push origin --all && git push origin --tags`, {silent: false});
                 spinner.succeed();
             }
