@@ -41,28 +41,28 @@ const onGitFlowReleaseFinished = () => {
 };
 
 const onVersionsBumped = () => {
-    inquirer.prompt(prompts.doRunBuild).then(answer => {
-        const appendToCommitMessage = answer.doRunBuild ? 'updated build;' : '';
-        let tagMessage = `-m "Release ${newVersion}"`;
-        if (flags.m) {
-            tagMessage = `-m "${flags.m}" `;
-        }
-        if (config.historyFile) {
-            const historyText = getTagNotes(currentVersion, newVersion);
-            shellEx(`echo "${historyText}\n$(cat ${config.historyFile})" > ${config.historyFile}`);
-        }
+    let commitCommand = 'git commit -am "bumped versions;';
+    let tagMessage = `-m "Release ${newVersion}"`;
+    if (flags.m) {
+        tagMessage = `-m "${flags.m}" `;
+    }
+    if (config.historyFile) {
+        const historyText = getTagNotes(currentVersion, newVersion);
+        shellEx(`echo "${historyText}\n$(cat ${config.historyFile})" > ${config.historyFile}`);
+        commitCommand += 'updated History.md;'
+    }
 
-        if (answer.doRunBuild) {
-            spinner.create('Building.');
-            shellEx(config.buildCommand);
-            spinner.succeed();
-        }
-        shellEx(`git commit -am "bumped versions;${appendToCommitMessage}"`);
+    if (config.buildCommand) {
+        spinner.create('Building.');
+        shellEx(config.buildCommand);
+        spinner.succeed();
+        commitCommand += 'updated build;';
+    }
+    shellEx(`${commitCommand}"`);
 
-        execSh(`git flow release finish "${tagMessage}" ${newVersion}`)
-            .then(onGitFlowReleaseFinished)
-            .catch(handleError);
-    });
+    execSh(`git flow release finish "${tagMessage}" ${newVersion}`)
+        .then(onGitFlowReleaseFinished)
+        .catch(handleError);
 };
 
 const onRealeaseTypeChosen = choice => {
