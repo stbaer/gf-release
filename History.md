@@ -1,3 +1,10 @@
+###1.1.3 — *January 7, 2017*
+
+  * added preferGlobal to package.json
+  * fix: tag message; readme updated
+  * updated README.md
+  * Merge tag '1.1.2' into develop
+
 ###1.1.2 — *January 7, 2017*
 
   * fix: commit command after version bump
