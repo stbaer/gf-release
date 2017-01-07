@@ -22,7 +22,7 @@ const flags = args.parse(process.argv);
 const config = module.exports.releaseConfig || {};
 
 config.versionFiles = config.versionFiles || ['package.json'];
-config.buildCommand = (config.buildCommand !== 'undefined') ? config.buildCommand : 'npm run build';
+config.buildCommand = (config.buildCommand === 'undefined') ? 'npm run build' : config.buildCommand;
 config.productionBranchName = config.productionBranchName || 'master';
 config.developBranchName = config.developBranchName || 'develop';
 config.historyFile = config.historyFile || false;
