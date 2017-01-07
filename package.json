@@ -12,7 +12,6 @@
   ],
   "scripts": {
     "xo": "xo",
-    "xofix": "xo --fix",
     "test": "xo",
     "prerelease": "xo",
     "release": "./bin/release.js",
