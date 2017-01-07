@@ -60,7 +60,7 @@ const onVersionsBumped = () => {
     }
     shellEx(`${commitCommand}"`);
 
-    execSh(`git flow release finish "${tagMessage}" ${newVersion}`)
+    execSh(`git flow release finish ${tagMessage} ${newVersion}`)
         .then(onGitFlowReleaseFinished)
         .catch(handleError);
 };

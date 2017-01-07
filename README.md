@@ -25,9 +25,9 @@ from the root of a git flow enabled repo
 - bump the version number(s) of all files set in the config (see Config section below)
 - update the history file if it is specified in the config
 - execute the build script if it is specified in the config
-- commit the changes 
+- commit the changes (use the -m cli flag for a custom commit message, otherwise it's `Release ${releaseVersion}`)
 - run `git flow release finish ${newReleaseVersion}` 
-- ask if all branches and tags should be pushed and do it if yes
+- ask if all branches and tags should be pushed and do it if yes (TODO - add cli flag to skip the question)
 - (TODO - ask for npm publish)
 
 ## Requirements
