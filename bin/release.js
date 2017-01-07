@@ -13,18 +13,19 @@ const bumpVersions = require('../lib/bump-versions');
 const handleError = require('../lib/handle-error');
 const spinner = require('../lib/spinner');
 const prompts = require('../lib/prompts');
+const getTagNotes = require('../lib/history');
 
-// args.option('dry', 'Dry run for testing'); // @TODO
-// const flags = args.parse(process.argv);
-args.parse(process.argv);
+args.option('message', 'enter a custom tag message');
+args.option('skip-build', `skip build before release`);
 
+const flags = args.parse(process.argv);
 const config = module.exports.releaseConfig || {};
 
 config.versionFiles = config.versionFiles || ['package.json'];
-config.buildCommand = config.buildCommand || 'npm run build';
+config.buildCommand = (config.buildCommand !== 'undefined') ? config.buildCommand : 'npm run build';
 config.productionBranchName = config.productionBranchName || 'master';
 config.developBranchName = config.developBranchName || 'develop';
-
+config.historyFile = config.historyFile || false;
 let currentVersion;
 let newVersion;
 
@@ -42,6 +43,14 @@ const onGitFlowReleaseFinished = () => {
 const onVersionsBumped = () => {
     inquirer.prompt(prompts.doRunBuild).then(answer => {
         const appendToCommitMessage = answer.doRunBuild ? 'updated build;' : '';
+        let tagMessage = `-m "Release ${newVersion}"`;
+        if (flags.m) {
+            tagMessage = `-m "${flags.m}" `;
+        }
+        if (config.historyFile) {
+            const historyText = getTagNotes(currentVersion, newVersion);
+            shellEx(`echo "${historyText}\n$(cat ${config.historyFile})" > ${config.historyFile}`);
+        }
 
         if (answer.doRunBuild) {
             spinner.create('Building.');
@@ -49,7 +58,8 @@ const onVersionsBumped = () => {
             spinner.succeed();
         }
         shellEx(`git commit -am "bumped versions;${appendToCommitMessage}"`);
-        execSh(`git flow release finish ${newVersion}`)
+
+        execSh(`git flow release finish "${tagMessage}" ${newVersion}`)
             .then(onGitFlowReleaseFinished)
             .catch(handleError);
     });
@@ -78,4 +88,3 @@ taggedVersions
     .getLastVersion()
     .then(onLastVersionResult)
     .catch(handleError);
-

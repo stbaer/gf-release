@@ -29,7 +29,7 @@ $ yarn add gf-release --save-dev
 
 ## Requirements
 
-- git flow has to be initialized
+- git flow has to be initialized (please use [gitflow-avh](https://github.com/petervanderdoes/gitflow-avh) because [nvie/gitflow](https://github.com/nvie/gitflow) hasn't been updated in years)
 - there needs to be at least one previous release / tag with a valid semver version
 - npm > 3, node > 6
 
