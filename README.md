@@ -7,25 +7,28 @@
 Install from [npm](https://npmjs.com/release) 
 
 ```bash
-$ npm i gf-release --save-dev
+$ npm i -g gf-release
 ```
 
-Or use [yarn](https://yarnpkg.com/en/docs/install)
+To start the release, call 
 ```bash
-$ yarn add gf-release --save-dev
+$ release
 ```
+from the root of a git flow enabled repo 
 
 ## What it does
 
 - check if the production and dev branches are up to date with the upstream branches
 - ask for the release type (major, minor, patch)
 - detect the last release version and the new release version based on the selection
-- run `git flow release start ${newReleaseVersion}`
-- bump the version numbers (see config below)
-- ask if a build script should be run, if yes per default `npm run build` or see config
-- commit the changes 
+- start the git flow release
+- bump the version number(s) of all files set in the config (see Config section below)
+- update the history file if it is specified in the config
+- execute the build script if it is specified in the config
+- commit the changes (use the -m cli flag for a custom commit message, otherwise it's `Release ${releaseVersion}`)
 - run `git flow release finish ${newReleaseVersion}` 
-- ask if all branches and tags should be pushed and do it if yes
+- ask if all branches and tags should be pushed and do it if yes (TODO - add cli flag to skip the question)
+- (TODO - ask for npm publish)
 
 ## Requirements
 
@@ -44,17 +47,19 @@ $ release -h
 
 This is the default configuration:
 
-```json
+```js
 {
-    "versionFiles": ["package.json"],
-    "buildCommand": "npm run build",
-    "productionBranchName": "master",
-    "developBranchName": "develop",
-    "upstream": "origin"
+    versionFiles: ["package.json"],
+    productionBranchName: "master",
+    developBranchName: "develop",
+    upstream: "origin",
+    buildCommand: null,
+    historyFile: null
 }
 ``` 
 - `versionFiles`: json files that contain a version field which should be bumped when releasing
-- `buildCommand`: this command will be run before `git flow release finish ${version}`
+- `buildCommand`: this command will be run before finishing the release, e.g `npm run build`
+- `historyFile`: if set it will prepend the history between the last release and this one to the file, e.g 'History.md'
 - `productionBranchName`  / `productionBranchName` - self explanatory
 - `upstream` can be changed in case theres an alias set for `origin` 
 
