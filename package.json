@@ -1,6 +1,6 @@
 {
   "name": "gf-release",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "testing",
   "main": "index.js",
   "bin": {
@@ -12,7 +12,6 @@
   ],
   "scripts": {
     "xo": "xo",
-    "xofix": "xo --fix",
     "test": "xo",
     "prerelease": "xo",
     "release": "./bin/release.js",
@@ -43,6 +42,12 @@
   "devDependencies": {
     "xo": "^0.17.1"
   },
+  "releaseConfig": {
+    "versionFiles": [
+      "package.json"
+    ],
+    "historyFile": "History.md"
+  },
   "xo": {
     "esnext": true,
     "rules": {
@@ -65,10 +70,5 @@
     "push",
     "node",
     "script"
-  ],
-  "releaseConfig": {
-    "versionFiles": [
-      "package.json"
-    ]
-  }
+  ]
 }
