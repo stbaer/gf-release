@@ -42,6 +42,12 @@
   "devDependencies": {
     "xo": "^0.17.1"
   },
+  "releaseConfig": {
+    "versionFiles": [
+      "package.json"
+    ],
+    "historyFile": "History.md"
+  },
   "xo": {
     "esnext": true,
     "rules": {
@@ -64,10 +70,5 @@
     "push",
     "node",
     "script"
-  ],
-  "releaseConfig": {
-    "versionFiles": [
-      "package.json"
-    ]
-  }
+  ]
 }
