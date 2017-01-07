@@ -6,6 +6,7 @@
   "bin": {
     "release": "./bin/release.js"
   },
+  "preferGlobal": true,
   "files": [
     "bin",
     "lib",
