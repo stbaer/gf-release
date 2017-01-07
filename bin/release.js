@@ -58,7 +58,7 @@ const onVersionsBumped = () => {
         spinner.succeed();
         commitCommand += 'updated build;';
     }
-    shellEx(commitCommand);
+    shellEx(`${commitCommand}"`);
 
     execSh(`git flow release finish "${tagMessage}" ${newVersion}`)
         .then(onGitFlowReleaseFinished)
