@@ -1,3 +1,10 @@
+###1.1.2 — *January 7, 2017*
+
+  * fix: commit command after version bump
+  * change: release type defaults to patch now; fix: prompt.js exports
+  * change: no more prompt if the build should run, this depends on the config now
+  * Merge tag '1.1.1' into develop
+
 ###1.1.1 — *January 7, 2017*
 
   * fix: missing lib folder in package.json files entry
