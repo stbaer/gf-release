@@ -12,23 +12,23 @@ $ npm i -g gf-release
 
 To start the release, call 
 ```bash
-$ release
+$ release [options] [command]
 ```
 from the root of a git flow enabled repo 
 
 ## What it does
 
 - check if the production and dev branches are up to date with the upstream branches
-- ask for the release type (major, minor, patch)
+- prompt for selecting the release type (major, minor, patch)
 - detect the last release version and the new release version based on the selection
 - start the git flow release
-- bump the version number(s) of all files set in the config (see Config section below)
-- update the history file if it is specified in the config
-- execute the build script if it is specified in the config
-- commit the changes (use the -m cli flag for a custom commit message, otherwise it's `Release ${releaseVersion}`)
-- run `git flow release finish ${newReleaseVersion}` 
-- ask if all branches and tags should be pushed and do it if yes (TODO - add cli flag to skip the question)
-- (TODO - ask for npm publish)
+    - bump the version number(s) of all files set in the config (see Config section below)
+    - update the history file if it is specified in the config
+    - execute the build script if it is specified in the config
+    - commit the changes (use the -m cli flag for a custom commit message, otherwise it's `Release ${releaseVersion}`)
+- finish the release 
+- prompt if all branches and tags should be pushed
+- if everything was pushed, prompt if 'npm publish' should be executed (unless disabled via cli option)
 
 ## Requirements
 
@@ -36,12 +36,25 @@ from the root of a git flow enabled repo
 - there needs to be at least one previous release / tag with a valid semver version
 - npm > 3, node > 6
 
-## Options
+## Command line options
 
-Show available cli options:
 ```bash
 $ release -h
 ```
+
+Commands:
+
+    help  Display help
+
+   Options:
+
+    -d, --dry-run     only log commands without executing them (disabled by default)
+    -m, --message     enter a custom tag message, if not set it will be "Release [newVersion]"
+    -n, --no-publish  don't prompt for npm publish (disabled by default)
+    -s, --skip-build  skip build before finishing release
+    
+    -h, --help        Output usage information
+    -v, --version     Output the version number
 
 ### Config
 

@@ -29,6 +29,17 @@ const onGitFlowReleaseFinished = () => {
                 spinner.create('Pushing branches and tags');
                 shellEx(`git push origin --all && git push origin --tags`, {silent: false});
                 spinner.succeed();
+
+                if (!flags.n) {
+                    inquirer.prompt(prompts.npmPublish)
+                        .then(answer => {
+                            if (answer.npmPublish) {
+                                spinner.create('Publishing to npm');
+                                shellEx('npm run publish', {silent: false});
+                                spinner.succeed();
+                            }
+                        });
+                }
             }
         });
 };
