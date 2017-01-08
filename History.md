@@ -1,3 +1,8 @@
+###1.3.0 — *January 8, 2017*
+
+  * added history commit message include and exclude filters
+  * minor cleanup in prompt messages
+
 ###1.2.1 — *January 8, 2017*
 
   * fixed typo
