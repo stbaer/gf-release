@@ -1,6 +1,6 @@
 {
   "name": "gf-release",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "git flow release node script",
   "main": "index.js",
   "bin": {

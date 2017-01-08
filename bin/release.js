@@ -35,7 +35,7 @@ const onGitFlowReleaseFinished = () => {
                         .then(answer => {
                             if (answer.npmPublish) {
                                 spinner.create('Publishing to npm');
-                                shellEx('npm run publish', {silent: false});
+                                shellEx('npm publish', {silent: false});
                                 spinner.succeed();
                             }
                         });
