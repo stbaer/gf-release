@@ -1,3 +1,8 @@
+###1.2.1 — *January 8, 2017*
+
+  * fixed typo
+  * Merge tag '1.2.0' into develop
+
 ###1.2.0 — *January 8, 2017*
 
   * fixed xo errors
