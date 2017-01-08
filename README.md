@@ -66,15 +66,21 @@ This is the default configuration:
     productionBranchName: "master",
     developBranchName: "develop",
     upstream: "origin",
+    commitMessagesExclude: ['Merge tag'],
+    commitMessagesInclude: [],
     buildCommand: null,
     historyFile: null
 }
 ``` 
 - `versionFiles`: json files that contain a version field which should be bumped when releasing
+- `productionBranchName`  / `developBranchName`: self explanatory
+- `upstream` can be changed in case there's an alias set for `origin` 
+-  `commitMessagesExclude`: Array of strings, commit messages containing one of the strings won't be included in the History
+-  `commitMessagesInclude`: Array of strings, only include commit messages in the History that contain one of the strings
+    - if `commitMessagesInclude` contains one or more strings, the exclude array will be ignored
 - `buildCommand`: this command will be run before finishing the release, e.g `npm run build`
 - `historyFile`: if set it will prepend the history between the last release and this one to the file, e.g 'History.md'
-- `productionBranchName`  / `productionBranchName` - self explanatory
-- `upstream` can be changed in case theres an alias set for `origin` 
+
 
 It can be overwritten by adding a `releaseConfig` field to the `package.json`.
 
