@@ -1,3 +1,12 @@
+###1.2.0 — *January 8, 2017*
+
+  * fixed xo errors
+  * minor cleanup
+  * - new: prompt for npm publish, can be disabled via cli - updated README.md
+  * - new: dry-run option, only logs the commands without changing anything
+  * updated yarn.lock
+  * Merge tag '1.1.4' into develop
+
 ###1.1.4 — *January 8, 2017*
 
   * fix: get config from package.json
