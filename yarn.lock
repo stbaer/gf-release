@@ -1440,6 +1440,12 @@ read-all-stream@^3.0.0:
     pinkie-promise "^2.0.0"
     readable-stream "^2.0.0"
 
+read-json-sync@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/read-json-sync/-/read-json-sync-1.1.1.tgz#43c669ae864aae308dfbbb2721a67e295ec8fff6"
+  dependencies:
+    graceful-fs "^4.1.2"
+
 read-pkg-up@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/read-pkg-up/-/read-pkg-up-1.0.1.tgz#9d63c13276c065918d57f002a57f40a1b643fb02"
