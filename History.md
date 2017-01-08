@@ -1,3 +1,8 @@
+###1.1.4 — *January 8, 2017*
+
+  * fix: get config from package.json
+  * Merge tag '1.1.3' into develop
+
 ###1.1.3 — *January 7, 2017*
 
   * added preferGlobal to package.json
