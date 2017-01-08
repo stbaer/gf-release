@@ -1,33 +1,26 @@
 #! /usr/bin/env node
 
-const readJsonSync = require('read-json-sync');
 const semver = require('semver');
 const taggedVersions = require('tagged-versions');
 const inquirer = require('inquirer');
-const args = require('args');
+const loudRejection = require('loud-rejection');
 
 const shellEx = require('../lib/ex').shellEx;
 const execSh = require('../lib/ex').execSh;
-const branchesUpToDate = require('../lib/check-branches-up-to-date');
+const branchesUpToDate = require('../lib/branches-up-to-date');
 const bumpVersions = require('../lib/bump-versions');
 const handleError = require('../lib/handle-error');
 const spinner = require('../lib/spinner');
 const prompts = require('../lib/prompts');
-const getTagNotes = require('../lib/history');
+const writeHistoryFile = require('../lib/history').writeHistoryFile;
 
-args.option('message', 'enter a custom tag message');
-args.option('skip-build', `skip build before release`);
+const config = require('../lib/config').config;
+const flags = require('../lib/config').flags;
 
-const flags = args.parse(process.argv);
-const config = readJsonSync('./package.json').releaseConfig || {};
-
-config.versionFiles = config.versionFiles || ['package.json'];
-config.buildCommand = (config.buildCommand === 'undefined') ? 'npm run build' : config.buildCommand;
-config.productionBranchName = config.productionBranchName || 'master';
-config.developBranchName = config.developBranchName || 'develop';
-config.historyFile = config.historyFile || false;
 let currentVersion;
 let newVersion;
+
+loudRejection();
 
 const onGitFlowReleaseFinished = () => {
     inquirer.prompt(prompts.pushThemAll)
@@ -46,9 +39,9 @@ const onVersionsBumped = () => {
     if (flags.m) {
         tagMessage = `-m "${flags.m}" `;
     }
+
     if (config.historyFile) {
-        const historyText = getTagNotes(currentVersion, newVersion);
-        shellEx(`echo "${historyText}\n$(cat ${config.historyFile})" > ${config.historyFile}`);
+        writeHistoryFile(currentVersion, newVersion, config.historyFile);
         commitCommand += 'updated History.md;';
     }
 
@@ -61,8 +54,7 @@ const onVersionsBumped = () => {
     shellEx(`${commitCommand}"`);
 
     execSh(`git flow release finish ${tagMessage} ${newVersion}`)
-        .then(onGitFlowReleaseFinished)
-        .catch(handleError);
+        .then(onGitFlowReleaseFinished);
 };
 
 const onRealeaseTypeChosen = choice => {
@@ -71,8 +63,7 @@ const onRealeaseTypeChosen = choice => {
 
     shellEx(`git flow release start ${newVersion}`);
     bumpVersions(config.versionFiles, newVersion)
-        .then(onVersionsBumped)
-        .catch(handleError);
+        .then(onVersionsBumped);
 };
 
 const onLastVersionResult = res => {
