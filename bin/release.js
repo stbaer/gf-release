@@ -1,10 +1,10 @@
 #! /usr/bin/env node
 
+const readJsonSync = require('read-json-sync');
 const semver = require('semver');
 const taggedVersions = require('tagged-versions');
 const inquirer = require('inquirer');
 const args = require('args');
-require('pkginfo')(module);
 
 const shellEx = require('../lib/ex').shellEx;
 const execSh = require('../lib/ex').execSh;
@@ -19,7 +19,7 @@ args.option('message', 'enter a custom tag message');
 args.option('skip-build', `skip build before release`);
 
 const flags = args.parse(process.argv);
-const config = module.exports.releaseConfig || {};
+const config = readJsonSync('./package.json').releaseConfig || {};
 
 config.versionFiles = config.versionFiles || ['package.json'];
 config.buildCommand = (config.buildCommand === 'undefined') ? 'npm run build' : config.buildCommand;
@@ -49,7 +49,7 @@ const onVersionsBumped = () => {
     if (config.historyFile) {
         const historyText = getTagNotes(currentVersion, newVersion);
         shellEx(`echo "${historyText}\n$(cat ${config.historyFile})" > ${config.historyFile}`);
-        commitCommand += 'updated History.md;'
+        commitCommand += 'updated History.md;';
     }
 
     if (config.buildCommand) {
