@@ -1,7 +1,7 @@
 {
   "name": "gf-release",
-  "version": "1.3.0",
-  "description": "git flow release node script",
+  "version": "1.4.0",
+  "description": "gitflow release node script",
   "main": "index.js",
   "bin": {
     "release": "./bin/release.js"
@@ -16,8 +16,8 @@
     "xo": "xo",
     "test": "xo",
     "prerelease": "xo",
-    "release": "./bin/release.js",
-    "build": "echo \"Fake build command\" && sleep 3;"
+    "release": "./bin/gf-release.js",
+    "build": "echo \"Fake build command for testing\" && sleep 3;"
   },
   "repository": {
     "type": "git",
@@ -40,7 +40,7 @@
     "ora": "^0.4.0",
     "read-json-sync": "^1.1.1",
     "semver": "^5.3.0",
-    "shelljs": "^0.7.5",
+    "shelljs": "^0.7.6",
     "tagged-versions": "^1.2.0",
     "update-json": "^1.0.0"
   },
@@ -64,8 +64,12 @@
       "unicorn/no-process-exit": "off"
     }
   },
+  "engines": {
+    "npm": ">=3.0.0",
+    "node": ">= 6.0.0"
+  },
   "keywords": [
-    "git flow",
+    "gitflow",
     "git",
     "github",
     "bitbucket",

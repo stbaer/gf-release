@@ -1,3 +1,11 @@
+###1.4.0 — *January 9, 2017*
+
+  * added engines field to package.json
+  * change: renamed release.js to gf-release.js
+  * lint / xo fixes
+  * updated shelljs to 0.7.6
+  * removed console.log
+
 ###1.3.0 — *January 8, 2017*
 
   * added history commit message include and exclude filters
@@ -6,40 +14,34 @@
 ###1.2.1 — *January 8, 2017*
 
   * fixed typo
-  * Merge tag '1.2.0' into develop
 
 ###1.2.0 — *January 8, 2017*
 
   * fixed xo errors
   * minor cleanup
-  * - new: prompt for npm publish, can be disabled via cli - updated README.md
-  * - new: dry-run option, only logs the commands without changing anything
+  * new: prompt for npm publish, can be disabled via cli - updated README.md
+  * new: dry-run option, only logs the commands without changing anything
   * updated yarn.lock
-  * Merge tag '1.1.4' into develop
 
 ###1.1.4 — *January 8, 2017*
 
   * fix: get config from package.json
-  * Merge tag '1.1.3' into develop
 
 ###1.1.3 — *January 7, 2017*
 
   * added preferGlobal to package.json
   * fix: tag message; readme updated
   * updated README.md
-  * Merge tag '1.1.2' into develop
 
 ###1.1.2 — *January 7, 2017*
 
   * fix: commit command after version bump
   * change: release type defaults to patch now; fix: prompt.js exports
   * change: no more prompt if the build should run, this depends on the config now
-  * Merge tag '1.1.1' into develop
 
 ###1.1.1 — *January 7, 2017*
 
   * fix: missing lib folder in package.json files entry
-  * Merge tag '1.1.0' into develop
 
 ###1.1.0 — *January 7, 2017*
 

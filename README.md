@@ -1,6 +1,12 @@
-> git flow command line release helper - less typing when doing a git flow release
+> gitflow command line release helper - less typing when doing a gitflow release
 
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/sindresorhus/xo)
+
+## Requirements
+
+- gitflow has to be initialized (please use [gitflow-avh](https://github.com/petervanderdoes/gitflow-avh) because [nvie/gitflow](https://github.com/nvie/gitflow) hasn't been updated in years)
+- there needs to be **at least one previous release** with a valid semver version
+- npm > 3, node > 6
 
 ## Usage
 
@@ -12,16 +18,16 @@ $ npm i -g gf-release
 
 To start the release, call 
 ```bash
-$ release [options] [command]
+$ gf-release [options] [command]
 ```
-from the root of a git flow enabled repo 
+from the root of a gitflow enabled repo 
 
 ## What it does
 
 - check if the production and dev branches are up to date with the upstream branches
 - prompt for selecting the release type (major, minor, patch)
 - detect the last release version and the new release version based on the selection
-- start the git flow release
+- start the gitflow release
     - bump the version number(s) of all files set in the config (see Config section below)
     - update the history file if it is specified in the config
     - execute the build script if it is specified in the config
@@ -30,16 +36,10 @@ from the root of a git flow enabled repo
 - prompt if all branches and tags should be pushed
 - if everything was pushed, prompt if 'npm publish' should be executed (unless disabled via cli option)
 
-## Requirements
-
-- git flow has to be initialized (please use [gitflow-avh](https://github.com/petervanderdoes/gitflow-avh) because [nvie/gitflow](https://github.com/nvie/gitflow) hasn't been updated in years)
-- there needs to be at least one previous release / tag with a valid semver version
-- npm > 3, node > 6
-
 ## Command line options
 
 ```bash
-$ release -h
+$ gf-release -h
 ```
 
 Commands:
