@@ -1,3 +1,7 @@
+###1.4.1 — *January 9, 2017*
+
+  * fix bin entry in package.json
+
 ###1.4.0 — *January 9, 2017*
 
   * added engines field to package.json
