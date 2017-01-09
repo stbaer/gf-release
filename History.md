@@ -1,3 +1,11 @@
+###1.4.0 — *January 9, 2017*
+
+  * added engines field to package.json
+  * change: renamed release.js to gf-release.js
+  * lint / xo fixes
+  * updated shelljs to 0.7.6
+  * removed console.log
+
 ###1.3.0 — *January 8, 2017*
 
   * added history commit message include and exclude filters
