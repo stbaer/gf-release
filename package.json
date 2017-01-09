@@ -1,7 +1,7 @@
 {
   "name": "gf-release",
   "version": "1.3.0",
-  "description": "git flow release node script",
+  "description": "gitflow release node script",
   "main": "index.js",
   "bin": {
     "release": "./bin/release.js"
@@ -16,8 +16,8 @@
     "xo": "xo",
     "test": "xo",
     "prerelease": "xo",
-    "release": "./bin/release.js",
-    "build": "echo \"Fake build command\" && sleep 3;"
+    "release": "./bin/gf-release.js",
+    "build": "echo \"Fake build command for testing\" && sleep 3;"
   },
   "repository": {
     "type": "git",
@@ -65,7 +65,7 @@
     }
   },
   "keywords": [
-    "git flow",
+    "gitflow",
     "git",
     "github",
     "bitbucket",
