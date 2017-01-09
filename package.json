@@ -4,7 +4,7 @@
   "description": "gitflow release node script",
   "main": "index.js",
   "bin": {
-    "release": "./bin/release.js"
+    "gf-release": "./bin/gf-release.js"
   },
   "preferGlobal": true,
   "files": [
