@@ -40,7 +40,7 @@
     "ora": "^0.4.0",
     "read-json-sync": "^1.1.1",
     "semver": "^5.3.0",
-    "shelljs": "^0.7.5",
+    "shelljs": "^0.7.6",
     "tagged-versions": "^1.2.0",
     "update-json": "^1.0.0"
   },
