@@ -64,6 +64,10 @@
       "unicorn/no-process-exit": "off"
     }
   },
+  "engines": {
+    "npm": ">=3.0.0",
+    "node": ">= 6.0.0"
+  },
   "keywords": [
     "gitflow",
     "git",
