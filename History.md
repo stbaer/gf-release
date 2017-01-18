@@ -1,5 +1,12 @@
 
 
+###Release 1.4.3
+>*January 18, 2017*
+
+ * fix: missing newline after date in history by updating release-history [b63e9e3](git@github.com:stbaer/gf-release.git/b63e9e38d454d59eba5858b3195ecc14e229fcea)
+
+
+
 ###Release 1.4.2
 >*January 18, 2017*
 
@@ -93,5 +100,3 @@
 
  * version 0.0.0 [7de3a7c](https://github.com/stbaer/gf-release/commit/7de3a7c23cf2c4f2d4b7e35e537619bb00d19567)
  * init gf-release [f5c8bd7](https://github.com/stbaer/gf-release/commit/f5c8bd7e328dacc064a82f93697824a3698eac20)
-
-
