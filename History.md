@@ -1,5 +1,14 @@
 
 
+###Release 1.4.2
+>*January 18, 2017*
+ * moved history stuff to release-history package; internal refactor; added history now contains commit links [be4bfe7](git@github.com:stbaer/gf-release.git/be4bfe75f6a4e2689f2e0e087904d0cfc8b28835)
+ * .gitignore [978aadd](git@github.com:stbaer/gf-release.git/978aaddbe5df4c5bc35d3efb9d4cbbe75af59c80)
+ * updated args package [cb74401](git@github.com:stbaer/gf-release.git/cb744016da4dfc60009f3cbf61facba85bc2476f)
+ * updated ora [48d4973](git@github.com:stbaer/gf-release.git/48d4973ff00876795e10e58f404c7eea609ab236)
+
+
+
 ###Release 1.4.1
 >*January 9, 2017*
  * fix bin entry in package.json [d5b0d27](git@github.com:stbaer/gf-release.gitcommit/d5b0d279b5093bbb9c33f1343d20c58ca1490e6c)
@@ -72,5 +81,3 @@
 >*January 6, 2017*
  * version 0.0.0 [7de3a7c](git@github.com:stbaer/gf-release.gitcommit/7de3a7c23cf2c4f2d4b7e35e537619bb00d19567)
  * init gf-release [f5c8bd7](git@github.com:stbaer/gf-release.gitcommit/f5c8bd7e328dacc064a82f93697824a3698eac20)
-
-
