@@ -4,68 +4,115 @@ const semver = require('semver');
 const taggedVersions = require('tagged-versions');
 const inquirer = require('inquirer');
 const loudRejection = require('loud-rejection');
+const dateFormat = require('dateformat');
+const releaseHistory = require('release-history');
+const remoteUrl = require('remote-origin-url');
 
-const shellEx = require('../lib/ex').shellEx;
-const execSh = require('../lib/ex').execSh;
+const shellEx = require('../lib/helpers/ex').shellEx;
+const execSh = require('../lib/helpers/ex').execSh;
+const handleError = require('../lib/helpers/handle-error');
 const branchesUpToDate = require('../lib/branches-up-to-date');
 const bumpVersions = require('../lib/bump-versions');
-const handleError = require('../lib/handle-error');
-const spinner = require('../lib/spinner');
+const spinner = require('../lib/helpers/spinner');
 const prompts = require('../lib/prompts');
-const writeHistoryFile = require('../lib/history').writeHistoryFile;
 
 const config = require('../lib/config').config;
 const flags = require('../lib/config').flags;
 
+const getCommits = releaseHistory.getCommits;
+const commitsToMd = releaseHistory.commitsToMd;
 let currentVersion;
+let currentHash;
 let newVersion;
 
 loudRejection();
 
-const onGitFlowReleaseFinished = () => {
-    inquirer.prompt(prompts.pushThemAll)
-        .then(answer => {
-            if (answer.pushThemAll) {
-                spinner.create('Pushing branches and tags');
-                shellEx(`git push origin --all && git push origin --tags`, {silent: false});
-                spinner.succeed();
+const prependToHistoryFile = (currentHash, newVersion, file) => new Promise(resolve => {
 
-                if (!flags.n) {
-                    inquirer.prompt(prompts.npmPublish)
-                        .then(answer => {
-                            if (answer.npmPublish) {
-                                spinner.create('Publishing to npm');
-                                shellEx('npm publish', {silent: false});
-                                spinner.succeed();
-                            }
-                        });
-                }
-            }
+    const date = dateFormat(new Date(), 'longDate');
+
+    getCommits(null, currentHash)
+        .then((commits) => {
+            remoteUrl((err, url) => {
+                const historyString = commitsToMd(commits, {
+                    includeStrings: config.commitMessagesInclude,
+                    excludeStrings: config.commitMessagesExclude,
+                    version: newVersion, date, url
+                });
+                shellEx(`echo "${historyString}\n\n$(cat ${file})" > ${file}`);
+                resolve();
+            });
         });
+});
+
+
+const build = () => {
+    if (config.buildCommand) {
+        spinner.create('Building.');
+        shellEx(config.buildCommand);
+        spinner.succeed();
+    }
 };
 
-const onVersionsBumped = () => {
-    let commitCommand = 'git commit -am "bumped versions;';
+const pushAll = () => {
+    spinner.create('Pushing branches and tags');
+    shellEx(`git push origin --all && git push origin --tags`, {silent: false});
+    spinner.succeed();
+};
+
+const finishRelease = () => {
     let tagMessage = `-m "Release ${newVersion}"`;
     if (flags.m) {
         tagMessage = `-m "${flags.m}" `;
     }
 
-    if (config.historyFile) {
-        writeHistoryFile(currentVersion, newVersion, config.historyFile);
-        commitCommand += 'updated History.md;';
-    }
+    execSh(`git flow release finish ${tagMessage} ${newVersion}`)
+        .then(onGitFlowReleaseFinished);
+};
 
+const onHistoryDone = (commitCommand) => {
     if (config.buildCommand) {
-        spinner.create('Building.');
-        shellEx(config.buildCommand);
-        spinner.succeed();
+        build();
         commitCommand += 'updated build;';
     }
     shellEx(`${commitCommand}"`);
+    finishRelease();
+};
 
-    execSh(`git flow release finish ${tagMessage} ${newVersion}`)
-        .then(onGitFlowReleaseFinished);
+const onEverythingPushed = () => {
+    !flags.n && inquirer
+        .prompt(prompts.npmPublish)
+        .then(answer => {
+            if (answer.npmPublish) {
+                spinner.create('Publishing to npm');
+                shellEx('npm publish', {silent: false});
+                spinner.succeed();
+            }
+        });
+};
+
+const onGitFlowReleaseFinished = () => {
+    inquirer.prompt(prompts.pushThemAll)
+        .then(answer => {
+            if (answer.pushThemAll) {
+                pushAll();
+                onEverythingPushed();
+            }
+        });
+};
+
+
+const onVersionsBumped = () => {
+    let commitCommand = 'git commit -am "bumped versions;';
+
+    if (config.historyFile) {
+        prependToHistoryFile(currentHash, newVersion, config.historyFile)
+            .then(() => {
+                onHistoryDone(`${commitCommand} updated History.md`);
+            })
+    } else {
+        onHistoryDone(commitCommand);
+    }
 };
 
 const onRealeaseTypeChosen = choice => {
@@ -79,6 +126,7 @@ const onRealeaseTypeChosen = choice => {
 
 const onLastVersionResult = res => {
     currentVersion = res.version;
+    currentHash = res.hash;
     inquirer.prompt(prompts.releaseTypes)
         .then(onRealeaseTypeChosen);
 };
