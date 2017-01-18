@@ -1,6 +1,6 @@
 {
   "name": "gf-release",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "description": "gitflow release node script",
   "bin": {
     "gf-release": "./bin/gf-release.js"
@@ -16,7 +16,8 @@
     "test": "xo",
     "prerelease": "xo",
     "release": "./bin/gf-release.js",
-    "build": "echo \"Fake build command for testing\" && sleep 3;"
+    "build": "echo \"Fake build command for testing\" && sleep 3;",
+    "history": "release-history -e 'Merge' -e 'bumped version' -e '(--)' -c https://github.com/stbaer/gf-release/commit -o History.md"
   },
   "repository": {
     "type": "git",
@@ -37,7 +38,7 @@
     "loud-rejection": "^1.6.0",
     "ora": "^1.0.0",
     "read-json-sync": "^1.1.1",
-    "release-history": "0.0.6",
+    "release-history": "0.0.8",
     "semver": "^5.3.0",
     "shelljs": "^0.7.6",
     "tagged-versions": "^1.2.0",
