@@ -53,7 +53,9 @@
     ],
     "commitMessagesExclude": [
       "Merge tag",
-      "Merge branch 'release"
+      "Merge branch 'release",
+      "bumped",
+      "(--)"
     ],
     "historyFile": "History.md"
   },
