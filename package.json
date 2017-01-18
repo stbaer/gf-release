@@ -16,7 +16,8 @@
     "test": "xo",
     "prerelease": "xo",
     "release": "./bin/gf-release.js",
-    "build": "echo \"Fake build command for testing\" && sleep 3;"
+    "build": "echo \"Fake build command for testing\" && sleep 3;",
+    "history": "release-history -e 'Merge' -e 'bumped version' -e '(--)' -c https://github.com/stbaer/gf-release/commit -o History.md"
   },
   "repository": {
     "type": "git",
