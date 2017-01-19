@@ -6,7 +6,6 @@ const inquirer = require('inquirer');
 const loudRejection = require('loud-rejection');
 const dateFormat = require('dateformat');
 const releaseHistory = require('release-history');
-const remoteUrl = require('remote-origin-url');
 
 const shellEx = require('../lib/helpers/ex').shellEx;
 const execSh = require('../lib/helpers/ex').execSh;
@@ -28,23 +27,20 @@ let newVersion;
 loudRejection();
 
 const prependToHistoryFile = (currentHash, newVersion, file) => new Promise(resolve => {
-
     const date = dateFormat(new Date(), 'longDate');
 
     getCommits(null, currentHash)
-        .then((commits) => {
-            remoteUrl((err, url) => {
-                const historyString = commitsToMd(commits, {
-                    includeStrings: config.commitMessagesInclude,
-                    excludeStrings: config.commitMessagesExclude,
-                    version: newVersion, date, url
-                });
-                shellEx(`echo "${historyString}\n\n$(cat ${file})" > ${file}`);
-                resolve();
+        .then(commits => {
+            const historyString = commitsToMd(commits, {
+                includeStrings: config.commitMessagesInclude,
+                excludeStrings: config.commitMessagesExclude,
+                url: config.commitBaseUrl,
+                version: newVersion, date
             });
+            shellEx(`echo "${historyString}\n\n$(cat ${file})" > ${file}`);
+            resolve();
         });
 });
-
 
 const build = () => {
     if (config.buildCommand) {
@@ -58,25 +54,6 @@ const pushAll = () => {
     spinner.create('Pushing branches and tags');
     shellEx(`git push origin --all && git push origin --tags`, {silent: false});
     spinner.succeed();
-};
-
-const finishRelease = () => {
-    let tagMessage = `-m "Release ${newVersion}"`;
-    if (flags.m) {
-        tagMessage = `-m "${flags.m}" `;
-    }
-
-    execSh(`git flow release finish ${tagMessage} ${newVersion}`)
-        .then(onGitFlowReleaseFinished);
-};
-
-const onHistoryDone = (commitCommand) => {
-    if (config.buildCommand) {
-        build();
-        commitCommand += 'updated build;';
-    }
-    shellEx(`${commitCommand}"`);
-    finishRelease();
 };
 
 const onEverythingPushed = () => {
@@ -101,15 +78,33 @@ const onGitFlowReleaseFinished = () => {
         });
 };
 
+const finishRelease = () => {
+    let tagMessage = `-m "Release ${newVersion}"`;
+    if (flags.m) {
+        tagMessage = `-m "${flags.m}" `;
+    }
+
+    execSh(`git flow release finish ${tagMessage} ${newVersion}`)
+        .then(onGitFlowReleaseFinished);
+};
+
+const onHistoryDone = commitCommand => {
+    if (config.buildCommand) {
+        build();
+        commitCommand += 'updated build;';
+    }
+    shellEx(`${commitCommand}"`);
+    finishRelease();
+};
 
 const onVersionsBumped = () => {
-    let commitCommand = 'git commit -am "bumped versions;';
+    const commitCommand = 'git commit -am "bumped versions;';
 
     if (config.historyFile) {
         prependToHistoryFile(currentHash, newVersion, config.historyFile)
             .then(() => {
                 onHistoryDone(`${commitCommand} updated History.md`);
-            })
+            });
     } else {
         onHistoryDone(commitCommand);
     }
