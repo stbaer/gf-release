@@ -1,6 +1,6 @@
 {
   "name": "gf-release",
-  "version": "1.4.3",
+  "version": "1.4.4",
   "description": "gitflow release node script",
   "bin": {
     "gf-release": "./bin/gf-release.js"
@@ -42,8 +42,7 @@
     "semver": "^5.3.0",
     "shelljs": "^0.7.6",
     "tagged-versions": "^1.2.0",
-    "update-json": "^1.0.0",
-    "remote-origin-url": "latest"
+    "update-json": "^1.0.0"
   },
   "devDependencies": {
     "xo": "^0.17.1"
@@ -58,7 +57,8 @@
       "bumped",
       "(--)"
     ],
-    "historyFile": "History.md"
+    "historyFile": "History.md",
+    "commitBaseUrl": "https://github.com/stbaer/gf-release/commit"
   },
   "xo": {
     "esnext": true,

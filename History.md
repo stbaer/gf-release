@@ -1,5 +1,13 @@
 
 
+###Release 1.4.4
+>*January 19, 2017*
+
+ * added commitBaseUrl config option; fixed xo errors; [ed722f2](https://github.com/stbaer/gf-release/commit/ed722f2538a94cc97b0c0285dce523e4916e5c12)
+ * fix: don't bump versions in dry-run [c3bca91](https://github.com/stbaer/gf-release/commit/c3bca91afac8164daa0786ee73a5b9217e4dff44)
+
+
+
 ###Release 1.4.3
 >*January 18, 2017*
 

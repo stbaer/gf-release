@@ -80,6 +80,7 @@ This is the default configuration:
     - if `commitMessagesInclude` contains one or more strings, the exclude array will be ignored
 - `buildCommand`: this command will be run before finishing the release, e.g `npm run build`
 - `historyFile`: if set it will prepend the history between the last release and this one to the file, e.g 'History.md'
+- `commitBaseUrl`: e.g. `https://github.com/stbaer/gf-release/commit` if set, links will be added to commits
 
 
 It can be overwritten by adding a `releaseConfig` field to the `package.json`.
