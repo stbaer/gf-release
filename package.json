@@ -1,6 +1,6 @@
 {
   "name": "gf-release",
-  "version": "1.4.4",
+  "version": "1.4.5",
   "description": "gitflow release node script",
   "bin": {
     "gf-release": "./bin/gf-release.js"
