@@ -79,7 +79,7 @@ const onGitFlowReleaseFinished = () => {
 };
 
 const finishRelease = () => {
-    let tagMessage = `-m "Release ${newVersion}"`;
+    let tagMessage = `-m "Release"`;
     if (flags.m) {
         tagMessage = `-m "${flags.m}" `;
     }
@@ -91,19 +91,19 @@ const finishRelease = () => {
 const onHistoryDone = commitCommand => {
     if (config.buildCommand) {
         build();
-        commitCommand += 'updated build;';
+        commitCommand += ' updated build;';
     }
     shellEx(`${commitCommand}"`);
     finishRelease();
 };
 
 const onVersionsBumped = () => {
-    const commitCommand = 'git commit -am "bumped versions;';
+    const commitCommand = 'git commit -am "bumped version(s);';
 
     if (config.historyFile) {
         prependToHistoryFile(currentHash, newVersion, config.historyFile)
             .then(() => {
-                onHistoryDone(`${commitCommand} updated History.md`);
+                onHistoryDone(`${commitCommand} updated History.md;`);
             });
     } else {
         onHistoryDone(commitCommand);
