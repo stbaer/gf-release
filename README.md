@@ -10,17 +10,17 @@
 
 ## Usage
 
-Install from [npm](https://npmjs.com/release) 
+Install from [npm](https://npmjs.com/release)
 
 ```bash
 $ npm i -g gf-release
 ```
 
-To start the release, call 
+To start the release, call
 ```bash
 $ gf-release [options] [command]
 ```
-from the root of a gitflow enabled repo 
+from the root of a gitflow enabled repo
 
 ## What it does
 
@@ -32,7 +32,7 @@ from the root of a gitflow enabled repo
     - update the history file if it is specified in the config
     - execute the build script if it is specified in the config
     - commit the changes (use the -m cli flag for a custom commit message, otherwise it's `Release ${releaseVersion}`)
-- finish the release 
+- finish the release
 - prompt if all branches and tags should be pushed
 - if everything was pushed, prompt if 'npm publish' should be executed (unless disabled via cli option)
 
@@ -52,7 +52,7 @@ Commands:
     -m, --message     enter a custom tag message, if not set it will be "Release [newVersion]"
     -n, --no-publish  don't prompt for npm publish (disabled by default)
     -s, --skip-build  skip build before finishing release
-    
+
     -h, --help        Output usage information
     -v, --version     Output the version number
 
@@ -69,12 +69,13 @@ This is the default configuration:
     commitMessagesExclude: ['Merge tag'],
     commitMessagesInclude: [],
     buildCommand: null,
-    historyFile: null
+    historyFile: null,
+    commitBaseUrl: null
 }
-``` 
+```
 - `versionFiles`: json files that contain a version field which should be bumped when releasing
 - `productionBranchName`  / `developBranchName`: self explanatory
-- `upstream` can be changed in case there's an alias set for `origin` 
+- `upstream` can be changed in case there's an alias set for `origin`
 -  `commitMessagesExclude`: Array of strings, commit messages containing one of the strings won't be included in the History
 -  `commitMessagesInclude`: Array of strings, only include commit messages in the History that contain one of the strings
     - if `commitMessagesInclude` contains one or more strings, the exclude array will be ignored
