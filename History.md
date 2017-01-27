@@ -1,5 +1,14 @@
 
 
+###Release 1.4.5
+>*January 27, 2017*
+
+ * fix: version doubled in release finish tag message [159783a](https://github.com/stbaer/gf-release/commit/159783a07938bdc358296a2b577e2bb4e2ad70fc)
+ * minor changes to commit message [394d7a1](https://github.com/stbaer/gf-release/commit/394d7a14c694b0c2a67d84c93a199f40b580f743)
+ * bump deps; updated yarn.lock; [8710055](https://github.com/stbaer/gf-release/commit/87100551057d91b21fa462a862abc3f6ab2e9e05)
+
+
+
 ###Release 1.4.4
 >*January 19, 2017*
 
