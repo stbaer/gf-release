@@ -79,7 +79,7 @@ const onGitFlowReleaseFinished = () => {
 };
 
 const finishRelease = () => {
-    let tagMessage = `-m "Release ${newVersion}"`;
+    let tagMessage = `-m "Release"`;
     if (flags.m) {
         tagMessage = `-m "${flags.m}" `;
     }
